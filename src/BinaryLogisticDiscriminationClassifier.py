@@ -29,6 +29,7 @@ class BinaryLogisticDiscriminationClassifier:
 
     # X: NDArray[samples, features], contains input variables for each feature, for each sample
     # y: NDArray[samples], contains labels for each sample, 0 or 1
+    # Returns training error
     def learn_step(self, X, y):
         # Add column of ones to input for bias term
         X = np.hstack([np.ones((len(X), 1)), X])
@@ -39,14 +40,8 @@ class BinaryLogisticDiscriminationClassifier:
         # Apply sigmoid function to get logistic prediction(s)
         logistic_prediction = sigmoid(linear_prediction)
 
-        # for m in range(100):
-        #     i = random.choice(range(len(X)))
-        #     parameter_gradient = X[i] * (y[i] - sigmoid(np.dot(self.parameters.T, X[i])))
-        #     # print(parameter_gradient)
-
-        #     self.parameters = self.parameters - (self.learningRate * parameter_gradient)
-        # n_samples = 10
-        # print(X.shape, logistic_prediction.shape, y.shape)
+        # Calculate training error (Binary Cross-Entropy Loss)
+        training_error = -(1/len(X)) * np.sum(y * np.log(logistic_prediction) + (1 - y) * np.log(1 - logistic_prediction))
 
         # Gradient descent
         if self.optimizer == "GD":
@@ -63,6 +58,7 @@ class BinaryLogisticDiscriminationClassifier:
 
         self.parameters = self.parameters - (self.learningRate * parameter_gradient)
 
+        return training_error
 
 
     def predict(self, X):
