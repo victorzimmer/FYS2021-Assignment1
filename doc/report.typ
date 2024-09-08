@@ -16,6 +16,10 @@
   doc,
 )
 
+Code available in GitHub repository
+
+#link("https://github.com/victorzimmer/FYS2021-Assignment1")
+
 = Introduction
 In this assignment we will read data from a CSV file and train a computer on it. The data consists of Spotify tracks and our goal is to use the liveness and loudness features of the tracks to classify
 them in the genres "Pop" and "Classical". To do this we will use logistic regression.
